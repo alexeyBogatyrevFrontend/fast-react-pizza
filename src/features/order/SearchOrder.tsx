@@ -1,29 +1,30 @@
-import { FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchOrder = () => {
-	const [query, setQuery] = useState('')
-	const navigate = useNavigate()
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
-	const handleSubmit = (e: FormEvent) => {
-		e.preventDefault()
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
-		if (!query) return
+    if (!query) return;
 
-		navigate(`/order/${query}`)
+    navigate(`/order/${query}`);
 
-		setQuery('')
-	}
+    setQuery("");
+  };
 
-	return (
-		<form onSubmit={handleSubmit}>
-			<input
-				value={query}
-				placeholder='Search order #'
-				onChange={e => setQuery(e.target.value)}
-			/>
-		</form>
-	)
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={query}
+        placeholder="Search order #"
+        onChange={(e) => setQuery(e.target.value)}
+        className="rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72"
+      />
+    </form>
+  );
+};
 
-export default SearchOrder
+export default SearchOrder;

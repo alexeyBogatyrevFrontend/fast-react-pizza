@@ -6,9 +6,10 @@ type ButtonProps = {
   disabled?: boolean;
   to?: string;
   type: "primary" | "small" | "secondary";
+  onClick: () => void;
 };
 
-const Button: FC<ButtonProps> = ({ children, disabled, to, type }) => {
+const Button: FC<ButtonProps> = ({ children, disabled, to, type, onClick }) => {
   const base =
     "inline-block rounded-full text-sm bg-yellow-400 px-4 py-3 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed";
 
@@ -24,6 +25,13 @@ const Button: FC<ButtonProps> = ({ children, disabled, to, type }) => {
       <Link className={styles[type]} to={to}>
         {children}
       </Link>
+    );
+
+  if (onClick)
+    return (
+      <button onClick={onClick} disabled={disabled} className={styles[type]}>
+        {children}
+      </button>
     );
 
   return (

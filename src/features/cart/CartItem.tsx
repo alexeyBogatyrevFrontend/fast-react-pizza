@@ -1,7 +1,18 @@
-import Button from "../../ui/Button";
-import { formatCurrency } from "../../utils/helpers";
+import { FC } from "react";
 
-function CartItem({ item }) {
+import { formatCurrency } from "../../utils/helpers";
+import DeleteItem from "./DeleteItem";
+
+type CartItemType = {
+  item: {
+    pizzaId: number;
+    name: string;
+    quantity: number;
+    totalPrice: number;
+  };
+};
+
+const CartItem: FC<CartItemType> = ({ item }) => {
   const { pizzaId, name, quantity, totalPrice } = item;
 
   return (
@@ -11,10 +22,10 @@ function CartItem({ item }) {
       </p>
       <div className="flex items-center justify-between sm:gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
-        <Button type="small">Delete</Button>
+        <DeleteItem pizzaId={pizzaId} />
       </div>
     </li>
   );
-}
+};
 
 export default CartItem;

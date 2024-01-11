@@ -48,6 +48,12 @@ export const {
 export default cartSlice.reducer;
 export type AppDispatch = typeof store.dispatch;
 
+export const getCart = (state: { cart: PizzaCartType }) => state.cart.cart;
+
+export const getCurrentQuantityById =
+  (id: number) => (state: { cart: PizzaCartType }) =>
+    state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;
+
 export const getTotalCartQuantity = (state: { cart: PizzaCartType }) =>
   state.cart.cart.reduce((accum, item) => accum + item.quantity, 0);
 

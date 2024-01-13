@@ -1,6 +1,6 @@
 // Test ID: IIDSAT
 
-import { useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import {
   calcMinutesLeft,
@@ -8,14 +8,26 @@ import {
   formatDate,
 } from "../../utils/helpers";
 import OrderItem from "./OrderItem";
-import { RootOrderType } from "../../types";
+import { Cart, RootOrderType } from "../../types";
+import { useEffect } from "react";
 
 function Order() {
   const order = useLoaderData() as RootOrderType;
 
+  const fetcher = useFetcher();
+
+  useEffect(() => {
+    if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+  }, [fetcher]);
+
   const {
+    id,
     status,
-    data: { id, priority, priorityPrice, orderPrice, estimatedDelivery, cart },
+    priority,
+    priorityPrice,
+    orderPrice,
+    estimatedDelivery,
+    cart,
   } = order;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
@@ -48,8 +60,15 @@ function Order() {
       </div>
 
       <ul className="divide-y divide-stone-200 border-b border-t">
-        {cart.map((item) => (
-          <OrderItem item={item} key={item.pizzaId} />
+        {cart.map((item: Cart) => (
+          <OrderItem
+            item={item}
+            isLoadingIngredients={fetcher.state === "loading"}
+            ingredients={
+              fetcher.data?.find((el) => el.id === item.pizzaId).ingredients
+            }
+            key={item.pizzaId}
+          />
         ))}
       </ul>
 

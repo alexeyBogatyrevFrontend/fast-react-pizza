@@ -24,6 +24,13 @@ export type PizzaCartType = {
 export type userType = {
   user: {
     username: string;
+    status: string;
+    position: {
+      latitude: string;
+      longitude: string;
+    };
+    address: string;
+    error: string;
   };
 };
 

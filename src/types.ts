@@ -26,3 +26,29 @@ export type userType = {
     username: string;
   };
 };
+
+export type RootOrderType = {
+  status: string;
+  data: Data;
+};
+
+export type Data = {
+  customer: string;
+  status: string;
+  priority: boolean;
+  cart: Cart[];
+  id: string;
+  estimatedDelivery: string;
+  orderPrice: number;
+  priorityPrice: number;
+};
+
+export type Cart = {
+  pizzaId: number;
+  name: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+  addIngredients: any[];
+  removeIngredients: any[];
+};

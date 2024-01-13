@@ -8,19 +8,14 @@ import {
   formatDate,
 } from "../../utils/helpers";
 import OrderItem from "./OrderItem";
+import { RootOrderType } from "../../types";
 
 function Order() {
-  const order = useLoaderData();
+  const order = useLoaderData() as RootOrderType;
 
-  // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const {
-    id,
     status,
-    priority,
-    priorityPrice,
-    orderPrice,
-    estimatedDelivery,
-    cart,
+    data: { id, priority, priorityPrice, orderPrice, estimatedDelivery, cart },
   } = order;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
@@ -54,7 +49,7 @@ function Order() {
 
       <ul className="divide-y divide-stone-200 border-b border-t">
         {cart.map((item) => (
-          <OrderItem item={item} key={item.id} />
+          <OrderItem item={item} key={item.pizzaId} />
         ))}
       </ul>
 
@@ -75,7 +70,7 @@ function Order() {
   );
 }
 
-export const loader = async ({ params }) => {
+export const loader = async ({ params }: any) => {
   const order = await getOrder(params.orderId);
 
   return order;

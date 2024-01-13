@@ -6,7 +6,7 @@ type ButtonProps = {
   disabled?: boolean;
   to?: string;
   type: "primary" | "small" | "secondary" | "round";
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const Button: FC<ButtonProps> = ({ children, disabled, to, type, onClick }) => {

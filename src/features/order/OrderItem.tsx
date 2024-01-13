@@ -1,6 +1,18 @@
+import { FC } from "react";
+import { Cart } from "../../types";
 import { formatCurrency } from "../../utils/helpers";
 
-function OrderItem({ item, isLoadingIngredients, ingredients }) {
+type OrderItemType = {
+  item: Cart;
+  isLoadingIngredients: boolean;
+  ingredients: any[];
+};
+
+const OrderItem: FC<OrderItemType> = ({
+  item,
+  // isLoadingIngredients,
+  // ingredients,
+}) => {
   const { quantity, name, totalPrice } = item;
 
   return (
@@ -13,6 +25,6 @@ function OrderItem({ item, isLoadingIngredients, ingredients }) {
       </div>
     </li>
   );
-}
+};
 
 export default OrderItem;
